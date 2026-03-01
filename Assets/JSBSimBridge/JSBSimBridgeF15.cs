@@ -34,7 +34,7 @@ public class JSBSimBridgeF15 : MonoBehaviour
     [BoxGroup("Flight Controls")]
     [Range(-1f, 1f)]
     [SerializeField] private float elevator = 0f;
-
+    public float Elevator {get => elevator; set => elevator = value;}
     [BoxGroup("Flight Controls")]
     [Range(-1f, 1f)]
     [SerializeField] private float aileron = 0f;

@@ -12,6 +12,13 @@
       },
       "url": "https://unity.pkg.cesium.com"
     },
+    "com.threelines.iot": {
+      "version": "https://github.com/OsmanX5/com.ThreeLines.IOT.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "bcd4b06194f69ebd001879b49b01e7dc6934cb12"
+    },
     "com.unity.ai.navigation": {
       "version": "2.0.10",
       "depth": 0,
