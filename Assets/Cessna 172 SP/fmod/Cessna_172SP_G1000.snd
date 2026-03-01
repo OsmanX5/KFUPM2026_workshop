@@ -1,0 +1,1675 @@
+A
+1000
+ACF_SOUNDS
+
+##########################################
+# Cessna 172 SP Skyhawk sound bank       #
+# 2.0.0                                  #
+# Michael Klier                          #
+# Daniela Rodriguez Careri               #
+# Laminar Research                       #
+##########################################
+
+DISABLE_LEGACY_ALERT_SOUNDS
+
+# ATTENTION: This is a generated file, do not hand edit. 
+#############################################################################################
+
+# Spaces 
+#############################################################################################
+BEGIN_SOUND_SPACE
+	SOUND_INDEX 0
+	BLEND_DEPTH 0.03
+	AABB -0.550 -0.650 -0.779 0.550 0.670 1.821
+END_SOUND_SPACE
+
+# Snapshots 
+#############################################################################################
+
+# -------------------- Mute sounds during initialization ---------------------
+BEGIN_SOUND_ATTACHMENT
+	SNAPSHOT_NAME /ducker
+	EVENT_START_COND sim/time/total_flight_time_sec > 0
+	EVENT_END_COND sim/time/total_flight_time_sec > 5
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	SNAPSHOT_NAME /in_cockpit_door_left_open
+	VEH_XYZ -0.700 0.042 0.659
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/flightmodel2/misc/door_open_ratio[0] > 0
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	SNAPSHOT_NAME /in_cockpit_door_right_open
+	VEH_XYZ 0.700 0.042 0.659
+	PARAM_DREF_IDX 1
+	EVENT_START_COND sim/flightmodel2/misc/door_open_ratio[1] > 0
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	SNAPSHOT_NAME /in_cockpit
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/operation/sound/inside_ratio[0] != 0
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+
+# Engine 
+#############################################################################################
+
+# -------------------- Engine ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/engines/engine
+	VEH_PART engine 0
+	EVENT_ALLOWED_FOR_AI
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/flightmodel2/misc/has_crashed == 0
+	EVENT_START_COND sim/operation/failures/rel_engsep0 != 6
+	EVENT_START_COND sim/flightmodel2/engines/engine_rotation_speed_rad_sec[0] > 1
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+
+# -------------------- Starter ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/engines/starter
+	VEH_PART engine 0
+	EVENT_ALLOWED_FOR_AI
+	PARAM_DREF_IDX 0
+	EVENT_ALWAYS
+END_SOUND_ATTACHMENT
+
+# -------------------- Engine fire ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/engines/engine_fire
+	VEH_PART engine 0
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/operation/failures/rel_engfir0 == 6
+	EVENT_END_COND sim/operation/failures/rel_engfir0 != 6
+END_SOUND_ATTACHMENT
+
+# -------------------- Engine sep ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/engines/engine_sep
+	VEH_PART engine 0
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/operation/failures/rel_engsep0 == 6
+	EVENT_END_COND sim/operation/failures/rel_engsep0 != 6
+END_SOUND_ATTACHMENT
+
+# Cockpit 
+#############################################################################################
+
+# -------------------- Avionics ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/avionics
+	VEH_XYZ 0.101 0.099 -0.574
+	EVENT_START_COND sim/cockpit2/switches/avionics_power_on == 1
+	EVENT_START_COND sim/cockpit2/electrical/battery_on[0] == 1
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+
+# -------------------- Bobblehead ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/bobblehead_on
+	VEH_XYZ -0.085 0.347 -0.425
+	EVENT_START_COND DELTA=sim/cockpit2/switches/custom_slider_on[19] > 0
+	EVENT_END_COND sim/cockpit2/switches/custom_slider_on[19] == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/bobblehead_off
+	VEH_XYZ 0.402 -0.097 -0.491
+	EVENT_START_COND DELTA=sim/cockpit2/switches/custom_slider_on[19] < 0
+	EVENT_END_COND sim/cockpit2/switches/custom_slider_on[19] == 1
+END_SOUND_ATTACHMENT
+
+# -------------------- Glovebox ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/glovebox_open
+	VEH_XYZ 0.402 -0.097 -0.491
+	PARAM_DREF_IDX 23
+	EVENT_START_COND DELTA=sim/flightmodel2/misc/custom_slider_ratio[23] > 0.1
+	EVENT_END_COND DELTA=sim/flightmodel2/misc/custom_slider_ratio[23] <= 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/glovebox_close
+	VEH_XYZ 0.402 -0.097 -0.491
+	PARAM_DREF_IDX 23
+	EVENT_START_COND DELTA=sim/flightmodel2/misc/custom_slider_ratio[23] < -0.1
+	EVENT_END_COND DELTA=sim/flightmodel2/misc/custom_slider_ratio[23] >= 0
+END_SOUND_ATTACHMENT
+
+# -------------------- Gyro ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/gyro
+	VEH_XYZ -0.090 0.076 -0.621
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/cockpit/gyros/gyr_spin[0] > 0
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+
+# Equipment 
+#############################################################################################
+
+# -------------------- Fuel pump ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/fuel_pump
+	VEH_XYZ 0.403 -0.421 -1.282
+	EVENT_ALLOWED_FOR_AI
+	EVENT_START_COND sim/flightmodel2/engines/fuel_pump_spinning[0] == 1
+	EVENT_START_COND sim/cockpit2/electrical/battery_on[0] == 1
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+
+# -------------------- Flaps lower ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/flaps_lower
+	VEH_XYZ 2.006 0.674 1.340
+	PARAM_DREF_IDX 0
+	EVENT_START_COND DELTA=sim/flightmodel2/wing/flap1_deg[0] > 0
+	EVENT_END_COND DELTA=sim/flightmodel2/wing/flap1_deg[0] <= 0
+END_SOUND_ATTACHMENT
+
+# -------------------- Flaps raise ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/flaps_raise
+	VEH_XYZ 2.006 0.674 1.340
+	PARAM_DREF_IDX 0
+	EVENT_START_COND DELTA=sim/flightmodel2/wing/flap1_deg[0] < 0
+	EVENT_END_COND DELTA=sim/flightmodel2/wing/flap1_deg[0] >= 0
+END_SOUND_ATTACHMENT
+
+# -------------------- Wing strobe ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/wing_strobe
+	VEH_XYZ -5.505 0.841 1.377
+	EVENT_START_COND sim/flightmodel2/lights/strobe_flash_now == 1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/wing_strobe
+	VEH_XYZ 5.505 0.841 1.377
+	EVENT_START_COND sim/flightmodel2/lights/strobe_flash_now == 1
+END_SOUND_ATTACHMENT
+
+# -------------------- Door L ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/door_open
+	VEH_XYZ -0.700 0.042 0.659
+	PARAM_DREF_IDX 0
+	EVENT_START_COND DELTA=sim/flightmodel2/misc/door_open_ratio[0] > 0
+	EVENT_END_COND DELTA=sim/flightmodel2/misc/door_open_ratio[0] <= 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/door_close
+	VEH_XYZ -0.700 0.042 0.659
+	PARAM_DREF_IDX 0
+	EVENT_START_COND DELTA=sim/flightmodel2/misc/door_open_ratio[0] < 0
+	EVENT_END_COND DELTA=sim/flightmodel2/misc/door_open_ratio[0] >= 0
+END_SOUND_ATTACHMENT
+
+# -------------------- Door R ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/door_open
+	VEH_XYZ 0.700 0.042 0.659
+	PARAM_DREF_IDX 1
+	EVENT_START_COND DELTA=sim/flightmodel2/misc/door_open_ratio[1] > 0
+	EVENT_END_COND DELTA=sim/flightmodel2/misc/door_open_ratio[1] <= 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/equipment/door_close
+	VEH_XYZ 0.700 0.042 0.659
+	PARAM_DREF_IDX 1
+	EVENT_START_COND DELTA=sim/flightmodel2/misc/door_open_ratio[1] < 0
+	EVENT_END_COND DELTA=sim/flightmodel2/misc/door_open_ratio[1] >= 0
+END_SOUND_ATTACHMENT
+
+# Environment 
+#############################################################################################
+
+# -------------------- Airflow ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/airspeed_noise
+	VEH_XYZ 0.000 0.289 -0.776
+	EVENT_START_COND sim/flightmodel/position/true_airspeed >= 1
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+
+# -------------------- Crash ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/crash
+	VEH_XYZ 0.000 0.000 0.121
+	EVENT_START_COND sim/flightmodel/failures/onground_any == 1
+	EVENT_START_COND sim/flightmodel/ground/surface_texture_type == 1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/crash
+	VEH_XYZ 0.000 0.000 0.121
+	EVENT_START_COND sim/flightmodel/failures/onground_any == 1
+	EVENT_START_COND sim/flightmodel/ground/surface_texture_type == 7
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/crash
+	VEH_XYZ 0.000 0.000 0.121
+	EVENT_START_COND sim/flightmodel2/misc/has_crashed == 1
+END_SOUND_ATTACHMENT
+
+# -------------------- Water land ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/water_land
+	VEH_XYZ 0.000 0.000 0.121
+	EVENT_START_COND sim/flightmodel/failures/onground_any == 1
+	EVENT_START_COND sim/flightmodel/ground/surface_texture_type == 1
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/water_land
+	VEH_XYZ 0.000 0.000 0.121
+	EVENT_START_COND sim/flightmodel/failures/onground_any == 1
+	EVENT_START_COND sim/flightmodel/ground/surface_texture_type == 7
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+
+# -------------------- Rain int ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/rain_int
+	VEH_PART cockpit 0
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/weather/precipitation_on_aircraft_ratio != 0
+	EVENT_END_COND sim/weather/precipitation_on_aircraft_ratio == 0
+END_SOUND_ATTACHMENT
+
+# -------------------- Rain ext ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/rain_ext
+	VEH_XYZ 0.000 0.000 0.121
+	EVENT_START_COND sim/weather/precipitation_on_aircraft_ratio != 0
+	EVENT_END_COND sim/weather/precipitation_on_aircraft_ratio == 0
+END_SOUND_ATTACHMENT
+
+# -------------------- Turbulence ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/turbulence
+	VEH_PART cockpit 0
+	EVENT_POLYPHONIC
+	PARAM_DREF_IDX 0
+	EVENT_START_COND ABS_DELTA=sim/flightmodel/forces/g_nrml > 0.90
+END_SOUND_ATTACHMENT
+
+# -------------------- Stress ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/stress
+	VEH_PART cockpit 0
+	PARAM_DREF_IDX 0
+	EVENT_ALWAYS
+END_SOUND_ATTACHMENT
+
+# -------------------- Tire 1 ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/surface
+	VEH_PART tire 0
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/flightmodel2/gear/on_ground[0] == 1
+	EVENT_START_COND sim/flightmodel2/gear/tire_rotation_speed_rad_sec[0] > 0.2
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/impact
+	VEH_PART tire 0
+	EVENT_POLYPHONIC
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/flightmodel2/gear/total_deflection_rate[0] > 1
+	EVENT_START_COND sim/flightmodel2/gear/tire_vertical_deflection_mtr[0] > 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/skid
+	VEH_PART tire 0
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/flightmodel2/gear/tire_skid_ratio[0] > 0
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+
+# -------------------- Tire 2 ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/surface
+	VEH_PART tire 1
+	PARAM_DREF_IDX 1
+	EVENT_START_COND sim/flightmodel2/gear/on_ground[1] == 1
+	EVENT_START_COND sim/flightmodel2/gear/tire_rotation_speed_rad_sec[1] > 0.2
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/impact
+	VEH_PART tire 1
+	EVENT_POLYPHONIC
+	PARAM_DREF_IDX 1
+	EVENT_START_COND sim/flightmodel2/gear/total_deflection_rate[0] > 1
+	EVENT_START_COND sim/flightmodel2/gear/tire_vertical_deflection_mtr[0] > 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/skid
+	VEH_PART tire 1
+	PARAM_DREF_IDX 1
+	EVENT_START_COND sim/flightmodel2/gear/tire_skid_ratio[1] > 0
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+
+# -------------------- Tire 3 ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/surface
+	VEH_PART tire 2
+	PARAM_DREF_IDX 2
+	EVENT_START_COND sim/flightmodel2/gear/on_ground[2] == 1
+	EVENT_START_COND sim/flightmodel2/gear/tire_rotation_speed_rad_sec[2] > 0.2
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/impact
+	VEH_PART tire 2
+	EVENT_POLYPHONIC
+	PARAM_DREF_IDX 2
+	EVENT_START_COND sim/flightmodel2/gear/total_deflection_rate[0] > 1
+	EVENT_START_COND sim/flightmodel2/gear/tire_vertical_deflection_mtr[0] > 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/environment/skid
+	VEH_PART tire 2
+	PARAM_DREF_IDX 2
+	EVENT_START_COND sim/flightmodel2/gear/tire_skid_ratio[2] > 0
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+
+# Alerts 
+#############################################################################################
+
+# -------------------- Altitude ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/alerts/altitude
+	VEH_XYZ 0.000 0.568 0.018
+	EVENT_START_COND sim/cockpit2/gauges/indicators/baro_altimeter_alert_lit_pilot != 0
+	EVENT_START_COND sim/cockpit2/electrical/battery_on[0] == 1
+END_SOUND_ATTACHMENT
+
+# -------------------- Fire bell ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/alerts/fire_bell
+	VEH_XYZ 0.000 0.568 0.018
+	EVENT_START_COND sim/cockpit2/annunciators/engine_fire == 1
+	EVENT_END_COND sim/cockpit2/annunciators/engine_fire != 1
+END_SOUND_ATTACHMENT
+
+# -------------------- Stall horn ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/alerts/stall_horn
+	VEH_XYZ 0.000 0.568 0.018
+	EVENT_START_COND sim/cockpit2/annunciators/stall_warning_ratio > 0
+	EVENT_START_COND sim/cockpit2/electrical/battery_on[0] == 1
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+
+# -------------------- Gear warn ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/alerts/gear_warn
+	VEH_XYZ 0.000 0.568 0.018
+	EVENT_START_COND sim/cockpit2/annunciators/gear_warning != 0
+	EVENT_END_COND sim/cockpit2/annunciators/gear_warning == 0
+END_SOUND_ATTACHMENT
+
+# -------------------- Ap disconnect ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/alerts/ap_disconnect
+	VEH_XYZ 0.000 0.568 0.018
+	EVENT_START_COND sim/cockpit/warnings/annunciators/autopilot_disconnect == 1
+END_SOUND_ATTACHMENT
+
+# Radios 
+#############################################################################################
+
+# -------------------- Marker inner pilot ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/inner_marker
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 7
+	EVENT_START_COND sim/cockpit2/radios/indicators/inner_marker_lit == 1
+	EVENT_END_COND sim/cockpit2/radios/indicators/inner_marker_lit != 1
+END_SOUND_ATTACHMENT
+
+# -------------------- Marker middle pilot ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/middle_marker
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 7
+	EVENT_START_COND sim/cockpit2/radios/indicators/middle_marker_lit == 1
+	EVENT_END_COND sim/cockpit2/radios/indicators/middle_marker_lit != 1
+END_SOUND_ATTACHMENT
+
+# -------------------- Marker outer pilot ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/outer_marker
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 7
+	EVENT_START_COND sim/cockpit2/radios/indicators/outer_marker_lit == 1
+	EVENT_END_COND sim/cockpit2/radios/indicators/outer_marker_lit != 1
+END_SOUND_ATTACHMENT
+
+# -------------------- Morse nav1 pilot ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1020_short
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_nav1 == 1
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_nav1 != 1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1020_long
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 0
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_nav1 == 2
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_nav1 != 2
+END_SOUND_ATTACHMENT
+
+# -------------------- Morse nav2 pilot ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1020_short
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 1
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_nav2 == 1
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_nav2 != 1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1020_long
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 1
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_nav2 == 2
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_nav2 != 2
+END_SOUND_ATTACHMENT
+
+# -------------------- Morse adf1 pilot ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1020_short
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 2
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_adf1 == 1
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_adf1 != 1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1020_long
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 2
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_adf1 == 2
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_adf1 != 2
+END_SOUND_ATTACHMENT
+
+# -------------------- Morse adf2 pilot ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1020_short
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 3
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_adf2 == 1
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_adf2 != 1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1020_long
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 3
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_adf2 == 2
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_adf2 != 2
+END_SOUND_ATTACHMENT
+
+# -------------------- Morse dme pilot ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1350_short
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 4
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_dme == 1
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_dme != 1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1350_long
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 4
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_dme == 2
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_dme != 2
+END_SOUND_ATTACHMENT
+
+# -------------------- Morse dme1 pilot ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1350_short
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 5
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_dme1 == 1
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_dme1 != 1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1350_long
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 5
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_dme1 == 2
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_dme1 != 2
+END_SOUND_ATTACHMENT
+
+# -------------------- Morse dme2 pilot ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1350_short
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 6
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_dme2 == 1
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_dme2 != 1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1350_long
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 6
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_dme2 == 2
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_dme2 != 2
+END_SOUND_ATTACHMENT
+
+# -------------------- Morse nav3 pilot ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1020_short
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 8
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_nav3 == 1
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_nav3 != 1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1020_long
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 8
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_nav3 == 2
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_nav3 != 2
+END_SOUND_ATTACHMENT
+
+# -------------------- Morse nav4 pilot ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1020_short
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 9
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_nav4 == 1
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_nav4 != 1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/radios/pilot/morse_1020_long
+	VEH_XYZ 0.000 0.568 0.018
+	PARAM_DREF_IDX 9
+	EVENT_START_COND sim/cockpit2/radios/indicators/morse_id_tone_nav4 == 2
+	EVENT_END_COND sim/cockpit2/radios/indicators/morse_id_tone_nav4 != 2
+END_SOUND_ATTACHMENT
+
+# Switches 
+#############################################################################################
+
+# -------------------- Flaps lever ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/flaps_lever
+	VEH_XYZ 0.188 -0.090 -0.490
+	EVENT_START_COND laminar/c172/flap_side_shift == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/flaps_lever
+	VEH_XYZ 0.188 -0.090 -0.490
+	EVENT_START_COND laminar/c172/flap_side_shift == 0.5
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/flaps_lever
+	VEH_XYZ 0.188 -0.090 -0.490
+	EVENT_START_COND laminar/c172/flap_side_shift == 1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/flaps_lever
+	VEH_XYZ 0.188 -0.090 -0.490
+	EVENT_START_COND sim/cockpit2/controls/flap_handle_request_ratio == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/flaps_lever
+	VEH_XYZ 0.188 -0.090 -0.490
+	EVENT_START_COND sim/cockpit2/controls/flap_handle_request_ratio > 0.33
+	EVENT_START_COND sim/cockpit2/controls/flap_handle_request_ratio < 0.334
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/flaps_lever
+	VEH_XYZ 0.188 -0.090 -0.490
+	EVENT_START_COND sim/cockpit2/controls/flap_handle_request_ratio > 0.66
+	EVENT_START_COND sim/cockpit2/controls/flap_handle_request_ratio < 0.667
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/flaps_lever
+	VEH_XYZ 0.188 -0.090 -0.490
+	EVENT_START_COND sim/cockpit2/controls/flap_handle_request_ratio == 1
+END_SOUND_ATTACHMENT
+
+# -------------------- Sel fuel ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/sel_fuel
+	VEH_XYZ 0.002 -0.473 -0.429
+	EVENT_CMND_DOWN laminar/c172/fuel_selector_dwn
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/sel_fuel
+	VEH_XYZ 0.002 -0.473 -0.429
+	EVENT_CMND_DOWN laminar/c172/fuel_selector_up
+END_SOUND_ATTACHMENT
+
+# -------------------- Mixture ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/mixture_transit
+	VEH_XYZ 0.023 -0.106 -0.492
+	EVENT_START_COND sim/cockpit2/engine/actuators/mixture_ratio[0] > 0
+	EVENT_START_COND sim/cockpit2/engine/actuators/mixture_ratio[0] < 1
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/mixture_push
+	VEH_XYZ 0.023 -0.106 -0.492
+	EVENT_START_COND sim/cockpit2/engine/actuators/mixture_ratio[0] == 1
+	EVENT_START_COND DELTA=sim/cockpit2/engine/actuators/mixture_ratio[0] > 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/mixture_pull
+	VEH_XYZ 0.023 -0.106 -0.492
+	EVENT_START_COND sim/cockpit2/engine/actuators/mixture_ratio[0] == 0
+	EVENT_START_COND DELTA=sim/cockpit2/engine/actuators/mixture_ratio[0] < 0
+END_SOUND_ATTACHMENT
+
+# -------------------- Throttle ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/mixture_transit
+	VEH_XYZ 0.023 -0.106 -0.492
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[0] > 0
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[0] < 1
+	EVENT_AUTO_END_FROM_START_COND
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/mixture_push
+	VEH_XYZ 0.023 -0.106 -0.492
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[0] == 1
+	EVENT_START_COND DELTA=sim/cockpit2/engine/actuators/throttle_ratio[0] > 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/mixture_pull
+	VEH_XYZ 0.023 -0.106 -0.492
+	EVENT_START_COND sim/cockpit2/engine/actuators/throttle_ratio[0] == 0
+	EVENT_START_COND DELTA=sim/cockpit2/engine/actuators/throttle_ratio[0] < 0
+END_SOUND_ATTACHMENT
+
+# -------------------- Parking brake ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/brake_set
+	VEH_XYZ -0.304 -0.225 -0.488
+	EVENT_START_COND sim/cockpit2/controls/parking_brake_ratio == 1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/brake_release
+	VEH_XYZ -0.304 -0.225 -0.488
+	EVENT_START_COND sim/cockpit2/controls/parking_brake_ratio == 0
+END_SOUND_ATTACHMENT
+
+# -------------------- Fuel cutoff ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/fuel_cutoff
+	VEH_XYZ 0.058 -0.470 -0.491
+	EVENT_START_COND ABS_DELTA=laminar/c172/fuel/fuel_cutoff_selector > 0
+	EVENT_END_COND ABS_DELTA=laminar/c172/fuel/fuel_cutoff_selector == 0
+END_SOUND_ATTACHMENT
+
+# -------------------- Static air ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/fuel_cutoff
+	VEH_XYZ -0.054 -0.092 -0.493
+	EVENT_START_COND ABS_DELTA=sim/cockpit2/switches/alternate_static_air_ratio > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/switches/alternate_static_air_ratio == 0
+END_SOUND_ATTACHMENT
+
+# -------------------- Ignition key ---------------------
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/ignition_key
+	VEH_XYZ -0.484 -0.115 -0.479
+	EVENT_START_COND ABS_DELTA=sim/cockpit2/engine/actuators/ignition_key[0] > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/engine/actuators/ignition_key[0] == 0
+END_SOUND_ATTACHMENT
+
+# Switches 
+#############################################################################################
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_metal
+	VEH_XYZ -0.407 0.041 -0.414
+	EVENT_POLYPHONIC
+	EVENT_START_COND ABS_DELTA=sim/cockpit2/engine/actuators/fuel_pump_on[0] > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/engine/actuators/fuel_pump_on[0] == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_metal
+	VEH_XYZ -0.407 0.041 -0.414
+	EVENT_POLYPHONIC
+	EVENT_START_COND ABS_DELTA=sim/cockpit2/switches/beacon_on > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/switches/beacon_on == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_metal
+	VEH_XYZ -0.407 0.041 -0.414
+	EVENT_POLYPHONIC
+	EVENT_START_COND ABS_DELTA=sim/cockpit2/switches/landing_lights_on > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/switches/landing_lights_on == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_metal
+	VEH_XYZ -0.407 0.041 -0.414
+	EVENT_POLYPHONIC
+	EVENT_START_COND ABS_DELTA=sim/cockpit2/switches/taxi_light_on > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/switches/taxi_light_on == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_metal
+	VEH_XYZ -0.407 0.041 -0.414
+	EVENT_POLYPHONIC
+	EVENT_START_COND ABS_DELTA=sim/cockpit2/switches/navigation_lights_on > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/switches/navigation_lights_on == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_metal
+	VEH_XYZ -0.407 0.041 -0.414
+	EVENT_POLYPHONIC
+	EVENT_START_COND ABS_DELTA=sim/cockpit2/switches/strobe_lights_on > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/switches/strobe_lights_on == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_metal
+	VEH_XYZ -0.407 0.041 -0.414
+	EVENT_POLYPHONIC
+	EVENT_START_COND ABS_DELTA=sim/cockpit/switches/pitot_heat_on > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit/switches/pitot_heat_on == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_plastic
+	VEH_XYZ -0.407 0.041 -0.414
+	EVENT_POLYPHONIC
+	EVENT_START_COND ABS_DELTA=sim/cockpit2/switches/avionics_power_on > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/switches/avionics_power_on == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_plastic
+	VEH_XYZ -0.407 0.041 -0.414
+	EVENT_POLYPHONIC
+	EVENT_START_COND ABS_DELTA=sim/cockpit2/electrical/battery_on[0] > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/electrical/battery_on[0] == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_plastic
+	VEH_XYZ -0.407 0.041 -0.414
+	EVENT_POLYPHONIC
+	EVENT_START_COND ABS_DELTA=sim/cockpit2/electrical/generator_on[0] > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit2/electrical/generator_on[0] == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_plastic
+	VEH_XYZ -0.407 0.041 -0.414
+	EVENT_CMND_DOWN sim/electrical/cross_tie_on
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_plastic
+	VEH_XYZ -0.407 0.041 -0.414
+	EVENT_CMND_DOWN sim/electrical/cross_tie_off
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_metal
+	VEH_XYZ -0.463 0.137 -0.490
+	EVENT_POLYPHONIC
+	EVENT_START_COND ABS_DELTA=sim/cockpit/warnings/annunciator_test_pressed > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit/warnings/annunciator_test_pressed == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/toggle_metal
+	VEH_XYZ -0.463 0.137 -0.490
+	EVENT_POLYPHONIC
+	EVENT_START_COND ABS_DELTA=sim/cockpit/electrical/battery_array_on[1] > 0
+	EVENT_END_COND ABS_DELTA=sim/cockpit/electrical/battery_array_on[1] == 0
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.000 0.186 -0.482
+	EVENT_CMND_HOLD_CUE sim/audio_panel/monitor_audio_com1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.000 0.186 -0.482
+	EVENT_CMND_HOLD_CUE sim/audio_panel/monitor_audio_com2
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.000 0.186 -0.482
+	EVENT_CMND_HOLD_CUE sim/audio_panel/monitor_audio_dme
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.000 0.186 -0.482
+	EVENT_CMND_HOLD_CUE sim/audio_panel/monitor_audio_mkr
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.000 0.186 -0.482
+	EVENT_CMND_HOLD_CUE sim/audio_panel/monitor_audio_nav1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.000 0.186 -0.482
+	EVENT_CMND_HOLD_CUE sim/audio_panel/monitor_audio_nav2
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.000 0.186 -0.482
+	EVENT_CMND_HOLD_CUE sim/audio_panel/monitor_audio_adf1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.000 0.186 -0.482
+	EVENT_CMND_HOLD_CUE sim/audio_panel/transmit_audio_com1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.000 0.186 -0.482
+	EVENT_CMND_HOLD_CUE sim/audio_panel/transmit_audio_com2
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.000 0.186 -0.482
+	EVENT_CMND_HOLD_CUE sim/annunciator/marker_beacon_mute_or_off
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.000 0.186 -0.482
+	EVENT_CMND_HOLD_CUE sim/annunciator/marker_beacon_sens_toggle
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/pb_plastic_hold
+	VEH_XYZ 0.000 0.186 -0.482
+	EVENT_CMND_HOLD_CUE sim/GPS/G1000_display_reversion
+END_SOUND_ATTACHMENT
+
+# G1000 1 
+#############################################################################################
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_softkey1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_softkey2
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_softkey3
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_softkey4
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_softkey5
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_softkey6
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_softkey7
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_softkey8
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_softkey9
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_softkey10
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_softkey11
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_softkey12
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_ent
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_menu
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_fpl
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_direct
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_proc
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_clr
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_pan_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_pan_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_pan_left
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_pan_right
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_pan_push
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_range_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_range_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_crs_sync
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_crs_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_crs_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_baro_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_baro_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/instruments/barometer_2992
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_com_ff
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_cvol
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_cvol_dn
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_cvol_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_com12
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_com_inner_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_com_inner_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_com_outer_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_com_outer_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_cursor
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_fms_inner_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_fms_outer_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_fms_inner_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_fms_outer_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_hdg_sync
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_hdg_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_hdg_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_nav12
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_nav_inner_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_nav_inner_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_nav_outer_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_nav_outer_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_nav_ff
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_nvol
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_nvol_dn
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_nvol_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_alt_inner_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_alt_inner_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_alt_outer_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n1_alt_outer_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_ap
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_fd
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_hdg
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_alt
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_nav
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_vnv
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_apr
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_bc
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_vs
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_nose_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_flc
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ -0.257 0.173 -0.390
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n1_nose_down
+END_SOUND_ATTACHMENT
+
+# G1000 3 
+#############################################################################################
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_softkey1
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_softkey2
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_softkey3
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_softkey4
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_softkey5
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_softkey6
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_softkey7
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_softkey8
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_softkey9
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_softkey10
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_softkey11
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_softkey12
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_ent
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_menu
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_fpl
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_direct
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_proc
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_clr
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_pan_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_pan_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_pan_left
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_pan_right
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_pan_push
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_range_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_range_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_crs_sync
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_crs_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_crs_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_baro_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_baro_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/instruments/barometer_2992
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_com_ff
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_cvol
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_cvol_dn
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_cvol_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_com12
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_com_inner_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_com_inner_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_com_outer_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_com_outer_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_cursor
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_fms_inner_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_fms_outer_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_fms_inner_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_fms_outer_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_hdg_sync
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_hdg_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_hdg_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/hat_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_nav12
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_nav_inner_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_nav_inner_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_nav_outer_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_nav_outer_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_nav_ff
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_nvol
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_nvol_dn
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_nvol_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_alt_inner_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_alt_inner_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_alt_outer_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/rotary_single
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_POLYPHONIC
+	EVENT_CMND_DOWN sim/GPS/g1000n3_alt_outer_down
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_ap
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_fd
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_hdg
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_alt
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_nav
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_vnv
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_apr
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_bc
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_vs
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_nose_up
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_flc
+END_SOUND_ATTACHMENT
+BEGIN_SOUND_ATTACHMENT
+	EVENT_NAME /c172/switches/g1000/pushbutton_hold
+	VEH_XYZ 0.124 0.173 -0.377
+	EVENT_CMND_HOLD_CUE sim/GPS/g1000n3_nose_down
+END_SOUND_ATTACHMENT

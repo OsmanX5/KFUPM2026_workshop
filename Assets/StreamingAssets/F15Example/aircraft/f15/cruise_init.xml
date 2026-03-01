@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<initialize name="F15 Cruise">
+  <!--
+    F15 initialized for cruise flight at 4,000 ft
+    Suitable for autopilot testing
+  -->
+  
+  <!-- Velocity: 400 knots calibrated airspeed -->
+  <vc unit="KTS"> 400 </vc>
+  
+  <!-- Position -->
+  <latitude unit="DEG">18.275</latitude>
+  <longitude unit="DEG">42.75</longitude>
+  <altitude unit="FT">20000 </altitude>
+  
+  <!-- Attitude: level flight -->
+  <phi unit="DEG"> 0.0 </phi>      <!-- Roll -->
+  <theta unit="DEG"> 2.0 </theta>  <!-- Pitch (slight nose up for level cruise) -->
+  <psi unit="DEG"> 90.0 </psi>     <!-- Heading: East -->
+  
+  <!-- Engines running -->
+  <running> 0 </running>
+  <running> 1 </running>
+
+</initialize>

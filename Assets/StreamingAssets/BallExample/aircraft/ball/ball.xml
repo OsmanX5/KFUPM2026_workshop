@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sourceforge.net/JSBSim.xsl"?>
+<fdm_config name="BALL" version="2.0" release="BETA"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://jsbsim.sourceforge.net/JSBSim.xsd">
+
+    <fileheader>
+        <author> Joe Public </author>
+        <filecreationdate> 2004-06-01 </filecreationdate>
+        <version> Version 1.0 </version>
+        <description> Ball vehicle test file </description>
+    </fileheader>
+
+    <metrics>
+        <wingarea unit="FT2"> 1 </wingarea>
+        <wingspan unit="FT"> 1 </wingspan>
+        <chord unit="FT"> 1 </chord>
+        <htailarea unit="FT2"> 0 </htailarea>
+        <htailarm unit="FT"> 0 </htailarm>
+        <vtailarea unit="FT2"> 0 </vtailarea>
+        <vtailarm unit="FT"> 0 </vtailarm>
+        <location name="AERORP" unit="IN">
+            <x> 0 </x>
+            <y> 0 </y>
+            <z> 0 </z>
+        </location>
+    </metrics>
+
+    <mass_balance>
+        <ixx unit="SLUG*FT2"> 10 </ixx>
+        <iyy unit="SLUG*FT2"> 10 </iyy>
+        <izz unit="SLUG*FT2"> 10 </izz>
+        <ixy unit="SLUG*FT2"> -0 </ixy>
+        <ixz unit="SLUG*FT2"> -0 </ixz>
+        <iyz unit="SLUG*FT2"> -0 </iyz>
+        <emptywt unit="LBS"> 50 </emptywt>
+        <location name="CG" unit="IN">
+            <x> 0 </x>
+            <y> 0 </y>
+            <z> 0 </z>
+        </location>
+    </mass_balance>
+
+    <ground_reactions>
+        <contact type="BOGEY" name="NOSE_CONTACT">
+            <location unit="IN">
+                <x> 0 </x>
+                <y> 0 </y>
+                <z> 0 </z>
+            </location>
+            <static_friction> 0 </static_friction>
+            <dynamic_friction> 0 </dynamic_friction>
+            <rolling_friction> 0 </rolling_friction>
+            <spring_coeff unit="LBS/FT"> 10000 </spring_coeff>
+            <damping_coeff unit="LBS/FT/SEC"> 200000 </damping_coeff>
+            <max_steer unit="DEG"> 0.0 </max_steer>
+            <brake_group> NONE </brake_group>
+            <retractable>0</retractable>
+        </contact>
+    </ground_reactions>
+
+    <propulsion/>
+
+    <flight_control name="FGFCS">
+        <!-- Declare control input properties -->
+        <property value="0">fcs/yaw-cmd-norm</property>
+        <property value="0">fcs/throttle-cmd-norm</property>
+        
+        <!-- Side force control: -1 = left, +1 = right -->
+        <channel name="Side">
+            <summer name="fcs/side-force-cmd">
+                <input>fcs/yaw-cmd-norm</input>
+                <clipto>
+                    <min>-1</min>
+                    <max>1</max>
+                </clipto>
+            </summer>
+        </channel>
+        
+        <!-- Forward/back force control -->
+        <channel name="Thrust">
+            <summer name="fcs/thrust-cmd">
+                <input>fcs/throttle-cmd-norm</input>
+                <clipto>
+                    <min>-1</min>
+                    <max>1</max>
+                </clipto>
+            </summer>
+        </channel>
+    </flight_control>
+
+    <aerodynamics>
+        <axis name="DRAG">
+            <function name="aero/coefficient/CD">
+                <description>Drag</description>
+                <product>
+                    <property>aero/qbar-psf</property>
+                    <property>metrics/Sw-sqft</property>
+                    <value>0.0001</value>
+                </product>
+            </function>
+        </axis>
+        
+        <!-- Side force from control input (Y axis in body frame) -->
+        <axis name="SIDE">
+            <function name="aero/force/side-control">
+                <description>Side force from control</description>
+                <product>
+                    <property>fcs/side-force-cmd</property>
+                    <value>50</value>  <!-- 50 lbs of side force at full deflection -->
+                </product>
+            </function>
+        </axis>
+    </aerodynamics>
+    
+    <!-- External forces for direct control -->
+    <external_reactions>
+        <force name="side-force" frame="BODY">
+            <location unit="IN">
+                <x>0</x>
+                <y>0</y>
+                <z>0</z>
+            </location>
+            <direction>
+                <x>0</x>
+                <y>1</y>
+                <z>0</z>
+            </direction>
+        </force>
+        <force name="push-force" frame="BODY">
+            <location unit="IN">
+                <x>0</x>
+                <y>0</y>
+                <z>0</z>
+            </location>
+            <direction>
+                <x>1</x>
+                <y>0</y>
+                <z>0</z>
+            </direction>
+        </force>
+    </external_reactions>
+
+    <!-- UDP INPUT FROM UNITY (control commands) -->
+    <input port="5139"/>
+
+    <!-- FILE OUTPUT FOR DATA LOGGING (includes control inputs for debugging) -->
+    <output name="ball_data" type="TABULAR" rate="2">
+        <property> simulation/sim-time-sec </property>
+        <property> position/h-sl-ft </property>
+        <property> fcs/yaw-cmd-norm </property>
+        <property> fcs/side-force-cmd </property>
+    </output>
+
+    <!-- UDP OUTPUT FOR UNITY -->
+    <output name="localhost" type="SOCKET" protocol="UDP" port="5138" rate="60">
+        <property> position/h-sl-ft </property>
+        <property> position/lat-geod-deg </property>
+        <property> position/long-gc-deg </property>
+    </output>
+
+</fdm_config>

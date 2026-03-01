@@ -1,0 +1,153 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sf.net/JSBSimScript.xsl"?>
+<runscript name="F15 Simple Maneuvers">
+  <description>
+    F15 performing simple turns at constant altitude (~10000ft).
+    Gentle maneuvers with elevator trim to maintain altitude.
+  </description>
+
+  <use aircraft="f15" initialize="cruise_init"/>
+
+  <!-- Simulation runs for 120 seconds -->
+  <run start="0.0" end="120.0" dt="0.008333">
+
+    <!-- Ensure engines are running and gear is up, set trim for level flight -->
+    <event name="Startup">
+      <condition> simulation/sim-time-sec le 0.5 </condition>
+      <set name="fcs/throttle-cmd-norm[0]" value="0.90"/>
+      <set name="fcs/throttle-cmd-norm[1]" value="0.90"/>
+      <set name="gear/gear-cmd-norm" value="0"/>
+      <set name="fcs/elevator-cmd-norm" value="0.05"/>
+      <notify>
+        <property>velocities/vc-kts</property>
+        <property>position/h-sl-ft</property>
+      </notify>
+    </event>
+
+    <!-- Level flight with trim -->
+    <event name="Level Flight">
+      <condition> simulation/sim-time-sec ge 2.0 </condition>
+      <set name="fcs/elevator-cmd-norm" value="0.05"/>
+      <set name="fcs/aileron-cmd-norm" value="0.0"/>
+      <set name="fcs/rudder-cmd-norm" value="0.0"/>
+      <notify>
+        <property>attitude/phi-deg</property>
+        <property>attitude/theta-deg</property>
+      </notify>
+    </event>
+
+    <!-- Gentle right turn (20 degree bank) -->
+    <event name="Right Turn Start">
+      <condition> simulation/sim-time-sec ge 15.0 </condition>
+      <set name="fcs/aileron-cmd-norm" value="0.2" action="FG_RAMP" tc="3.0"/>
+      <set name="fcs/elevator-cmd-norm" value="0.08" action="FG_RAMP" tc="1.0"/>
+      <notify>
+        <property>attitude/phi-deg</property>
+        <property>attitude/psi-deg</property>
+      </notify>
+    </event>
+
+    <!-- Hold right turn -->
+    <event name="Right Turn Hold">
+      <condition> simulation/sim-time-sec ge 20.0 </condition>
+      <set name="fcs/aileron-cmd-norm" value="0.05"/>
+      <set name="fcs/elevator-cmd-norm" value="0.07"/>
+      <notify/>
+    </event>
+
+    <!-- Level off -->
+    <event name="Level Off 1">
+      <condition> simulation/sim-time-sec ge 35.0 </condition>
+      <set name="fcs/aileron-cmd-norm" value="0.0" action="FG_RAMP" tc="3.0"/>
+      <set name="fcs/elevator-cmd-norm" value="0.05" action="FG_RAMP" tc="2.0"/>
+      <notify>
+        <property>attitude/phi-deg</property>
+        <property>attitude/psi-deg</property>
+      </notify>
+    </event>
+
+    <!-- Straight and level -->
+    <event name="Straight Flight 1">
+      <condition> simulation/sim-time-sec ge 40.0 </condition>
+      <set name="fcs/aileron-cmd-norm" value="0.0"/>
+      <set name="fcs/elevator-cmd-norm" value="0.05"/>
+      <notify>
+        <property>position/h-sl-ft</property>
+      </notify>
+    </event>
+
+    <!-- Gentle left turn (25 degree bank) -->
+    <event name="Left Turn Start">
+      <condition> simulation/sim-time-sec ge 50.0 </condition>
+      <set name="fcs/aileron-cmd-norm" value="-0.25" action="FG_RAMP" tc="3.0"/>
+      <set name="fcs/elevator-cmd-norm" value="0.09" action="FG_RAMP" tc="1.0"/>
+      <notify>
+        <property>attitude/phi-deg</property>
+      </notify>
+    </event>
+
+    <!-- Hold left turn -->
+    <event name="Left Turn Hold">
+      <condition> simulation/sim-time-sec ge 55.0 </condition>
+      <set name="fcs/aileron-cmd-norm" value="-0.08"/>
+      <set name="fcs/elevator-cmd-norm" value="0.08"/>
+      <notify/>
+    </event>
+
+    <!-- Level off -->
+    <event name="Level Off 2">
+      <condition> simulation/sim-time-sec ge 70.0 </condition>
+      <set name="fcs/aileron-cmd-norm" value="0.0" action="FG_RAMP" tc="3.0"/>
+      <set name="fcs/elevator-cmd-norm" value="0.05" action="FG_RAMP" tc="2.0"/>
+      <notify/>
+    </event>
+
+    <!-- Straight and level -->
+    <event name="Straight Flight 2">
+      <condition> simulation/sim-time-sec ge 75.0 </condition>
+      <set name="fcs/aileron-cmd-norm" value="0.0"/>
+      <set name="fcs/elevator-cmd-norm" value="0.05"/>
+      <notify>
+        <property>position/h-sl-ft</property>
+      </notify>
+    </event>
+
+    <!-- Gentle S-turn right -->
+    <event name="S-Turn Right">
+      <condition> simulation/sim-time-sec ge 85.0 </condition>
+      <set name="fcs/aileron-cmd-norm" value="0.2" action="FG_RAMP" tc="2.0"/>
+      <set name="fcs/elevator-cmd-norm" value="0.08"/>
+      <notify>
+        <property>attitude/phi-deg</property>
+      </notify>
+    </event>
+
+    <event name="S-Turn Transition">
+      <condition> simulation/sim-time-sec ge 95.0 </condition>
+      <set name="fcs/aileron-cmd-norm" value="-0.2" action="FG_RAMP" tc="3.0"/>
+      <set name="fcs/elevator-cmd-norm" value="0.08"/>
+      <notify/>
+    </event>
+
+    <event name="S-Turn Left">
+      <condition> simulation/sim-time-sec ge 105.0 </condition>
+      <set name="fcs/aileron-cmd-norm" value="-0.1"/>
+      <set name="fcs/elevator-cmd-norm" value="0.06"/>
+      <notify/>
+    </event>
+
+    <!-- Final level flight -->
+    <event name="Final Level">
+      <condition> simulation/sim-time-sec ge 112.0 </condition>
+      <set name="fcs/aileron-cmd-norm" value="0.0" action="FG_RAMP" tc="3.0"/>
+      <set name="fcs/elevator-cmd-norm" value="0.05" action="FG_RAMP" tc="2.0"/>
+      <set name="fcs/rudder-cmd-norm" value="0.0"/>
+      <notify>
+        <property>position/h-sl-ft</property>
+        <property>velocities/vc-kts</property>
+        <property>attitude/psi-deg</property>
+      </notify>
+    </event>
+
+  </run>
+</runscript>
